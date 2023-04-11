@@ -1,0 +1,19 @@
+{{#each this}}
+<a class="photo-card">
+    <img src="{{this.backdrop_path}}" alt="{{this.imdb_id}}" loading="lazy" />
+    <div class="info">
+        <p class="info-item">
+            <b>Name {{this.original_title}}</b>
+        </p>
+        <p class="info-item">
+            <b>Budget {{this.budget}}</b>
+        </p>
+        <p class="info-item">
+            <b>Comments {{this.tagline}}</b>
+        </p>
+        <p class="info-item">
+            <b>Vote Count {{this.vote_count}} </b>
+        </p>
+    </div>
+</a>
+{{/each}}
