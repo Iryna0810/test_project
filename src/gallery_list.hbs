@@ -1,15 +1,15 @@
 {{#each this}}
 <a class="photo-card">
-    <img src="{{this.backdrop_path}}" alt="{{this.imdb_id}}" loading="lazy" />
+    <img src="{{this.result.backdrop_path}}" alt="{{this.result.imdb_id}}" loading="lazy" />
     <div class="info">
         <p class="info-item">
-            <b>Name {{this.original_title}}</b>
+            <b>Name {{this.result.result.original_title}}</b>
         </p>
         <p class="info-item">
-            <b>Budget {{this.budget}}</b>
+            <b>Budget {{this.result.budget}}</b>
         </p>
         <p class="info-item">
-            <b>Comments {{this.tagline}}</b>
+            <b>Comments {{this.result.tagline}}</b>
         </p>
         <p class="info-item">
             <b>Vote Count {{this.vote_count}} </b>
