@@ -1,19 +1,22 @@
 {{#each this}}
 <a class="photo-card">
-    <img src="{{this.result.backdrop_path}}" alt="{{this.result.imdb_id}}" loading="lazy" />
+    
     <div class="info">
+        <img url = {{this.poster_path}} width="200" height="100" load = "lazy">
         <p class="info-item">
-            <b>Name {{this.result.result.original_title}}</b>
+            <b>Name {{this.original_title}}</b>
         </p>
         <p class="info-item">
-            <b>Budget {{this.result.budget}}</b>
+            <b>Popularity {{this.popularity}}</b>
         </p>
         <p class="info-item">
-            <b>Comments {{this.result.tagline}}</b>
+            <b>Comments {{this.overview}}</b>
         </p>
         <p class="info-item">
             <b>Vote Count {{this.vote_count}} </b>
         </p>
+    <button class="btn" type="button" id = "queue">Queue</button>
+    <button class="btn" type="button" id = "watched">Watched</button>
     </div>
 </a>
 {{/each}}
