@@ -18,7 +18,7 @@ import createGalleryCard from './gallery_list.hbs';
 
 const imagesList = document.querySelector('.gallery');
 
-console.log(fetchVideo());
+// console.log(fetchVideo());
 
 fetchVideo()
     .then(({ data }) =>
@@ -35,7 +35,7 @@ const filmAddEl = document.querySelector('.gallery');
 
 let watchedListFilm = [];
 
-console.log(filmAddEl);
+// console.log(filmAddEl);
 
 filmAddEl.addEventListener("click", setWatchedListFilms);
 
@@ -48,16 +48,17 @@ function setWatchedListFilms(event) {
     const searchQueryId = event.target.attributes.id.textContent;
     console.log(searchQueryId);
    
-    filmAddEl.innerHTML = "";
+    // filmAddEl.innerHTML = "";
 
-    fetchPokemonByld(searchQueryId)
-        // .then(({data}) => {
-        //     console.log(data)
-        // })
+    fetchFilmByld(searchQueryId)
         .then(({ data }) => {
-       const markupF = createGalleryCard(data);
-            filmAddEl.innerHTML = markupF;
+            
+            const savedWatched = localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(data));
         })
+    //     .then(({ data }) => {
+    //    const markupF = createGalleryCard(data);
+    //         filmAddEl.innerHTML = markupF;
+    //     })
     .catch(err => {
             console.log(err);
     });
@@ -79,7 +80,7 @@ function setWatchedListFilms(event) {
     // return savedWatched;
 }
 
-async function fetchPokemonByld(film_Id) {
+async function fetchFilmByld(film_Id) {
     try {
         return await axios.get(`https://api.themoviedb.org/3/movie/${film_Id}?api_key=${API_KEY}`);
     }
