@@ -28,14 +28,9 @@ fetchVideo()
     });
 
 const filmAddEl = document.querySelector('.gallery');
-
-
-
-// console.log(filmEl);
+const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
 
 let watchedListFilm = [];
-
-// console.log(filmAddEl);
 
 filmAddEl.addEventListener("click", setWatchedListFilms);
 
@@ -47,22 +42,60 @@ function setWatchedListFilms(event) {
    
     const searchQueryId = event.target.attributes.id.textContent;
     console.log(searchQueryId);
-   
-    // filmAddEl.innerHTML = "";
 
     fetchFilmByld(searchQueryId)
         .then(({ data }) => {
-            
-            const savedWatched = localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(data));
+            try {
+        
+    
+        if (savedData) {
+            let filmIdLocalStorag = [];
+            const filmData = JSON.parse(savedData);
+        
+            filmData.forEach(((filmData) => {
+                filmIdLocalStorag.push(filmData.id)
+                console.log(filmIdLocalStorag);
+}
+            ))
+            for (const id of filmIdLocalStorag) {
+                if (data.id === id) {
+                    return;
+                }
+            }
+}
+            watchedListFilm.push(data);
+            localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(watchedListFilm));
+            } 
+            catch (error) {
+            console.error("Get state error: ", error.message);
+    }   
         })
-    //     .then(({ data }) => {
-    //    const markupF = createGalleryCard(data);
-    //         filmAddEl.innerHTML = markupF;
-    //     })
-    .catch(err => {
+        .catch(err => {
             console.log(err);
     });
  
+
+    const queueButton = document.querySelector('.btn_queue');
+    queueButton.addEventListener('click', createQueueMarkUp);
+
+    function createQueueMarkUp() {
+         filmAddEl.innerHTML = "";
+        try {
+        const filmData = JSON.parse(savedData);
+                  
+        if (savedData) {
+          
+            filmData.forEach((filmObject) => {
+                imagesList.innerHTML = createGalleryCard(filmObject);
+        })
+
+        }
+    } catch (error) {
+            console.error("Get state error: ", error.message);
+    }
+
+
+    }
 
     
     // filmAddEl.innerHTML = markupF;
