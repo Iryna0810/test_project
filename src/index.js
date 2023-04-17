@@ -1,10 +1,11 @@
 import axios from 'axios';
 import createGalleryCard from './gallery_list.hbs';
+import './get_localstorage_info';
 
    const API_KEY = '2bcb7fdd81c3309c5e646690433e3287';  
    const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/week';
    const STORAGE_KEY_WATCH = 'watched';
-
+   const imagesList = document.querySelector('.gallery');
 
      async function fetchVideo () {
         try {
@@ -16,7 +17,7 @@ import createGalleryCard from './gallery_list.hbs';
         }
     };
 
-const imagesList = document.querySelector('.gallery');
+
 
 // console.log(fetchVideo());
 
@@ -48,7 +49,6 @@ function setWatchedListFilms(event) {
         .then(({ data }) => {
             console.log(data);
             try {
-                
                 const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
                 
                 // console.log(savedData);
@@ -57,23 +57,23 @@ function setWatchedListFilms(event) {
                 // filmLocalStorag.push(data);
                 localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(filmData));
 
-                    // filmData.push(JSON.parse(savedData))
+                // filmData.push(JSON.parse(savedData))
       
                                        
-                    // let filmIdLocalStorag = [];
+                // let filmIdLocalStorag = [];
 
-                    // filmData.forEach(((filmEl) => {
-                    //     console.log(filmEl)
-                    //     filmIdLocalStorag.push(filmEl.id);
-                    //     }));
-                    // console.log(filmIdLocalStorag);
+                // filmData.forEach(((filmEl) => {
+                //     console.log(filmEl)
+                //     filmIdLocalStorag.push(filmEl.id);
+                //     }));
+                // console.log(filmIdLocalStorag);
                     
-                    // for (const id of filmIdLocalStorag) {
-                    //     if (data.id === id) {
-                    //         return;
-                    //     }
-                    // }             
-           }               
+                // for (const id of filmIdLocalStorag) {
+                //     if (data.id === id) {
+                //         return;
+                //     }
+                // }             
+            }
             catch (error) {
                 console.error("Get state error: ", error.message);
             }
@@ -82,6 +82,7 @@ function setWatchedListFilms(event) {
         .catch((error) => {
             console.error("Set state error: ", error.message);
         });
+}
         
 function save (key, value) {
   try {
@@ -101,36 +102,79 @@ function save (key, value) {
   }
 };
 
-    const queueButton = document.querySelector('.btn_queue');
-    queueButton.addEventListener('click', createQueueMarkUp);
-    console.log(queueButton);
+//     const queueButton = document.querySelector('.btn_queue');
+ 
 
-    function createQueueMarkUp() {
-         filmAddEl.innerHTML = "";
-        try {
-        const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
-        const filmData = JSON.parse(savedData);
-            console.log(filmData);
-        if (filmData) {
-          
-        //     filmData.forEach((filmObject) => {
-                
-        //         filmAddEl.innerHTML = createGalleryCard(filmObject);
-        // })
+//     queueButton.addEventListener('click', handleGetInfoLocalStorage);
+//     console.log(queueButton);
+//     const filmList = document.querySelector('.gallery');   
 
-            const markup = filmData.map((data) => 
-             {createGalleryCard(data);}   
-            ).join('');
-            filmAddEl.innerHTML = markup;
+//     function handleGetInfoLocalStorage(event) {
+        
+//         filmList.innerHTML = "";
+//         const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
 
-            }
-        }
-     catch (error) {
-            console.error("Get state error: ", error.message);
-    }
+//         if (savedData) {
+//         try {
+//             const filmData = JSON.parse(savedData);
+//             console.log(filmData);
+
+//             const markup = filmData.map((data) => 
+//                 makeGalleryCard(data)).join('');
+            
+//             filmList.innerHTML = markup;
+//             // console.log(createQueueMarkUp(filmData));
+//         }
+//         catch (error) {
+//             console.error("Get state error: ", error.message);
+//     }
+//         }   
+//         }
+
+// const makeGalleryCard = ({ backdrop_path, original_title, popularity, overview, id }) => {
+// return `<a class="photo-card gallery__item" 
+//   href="${backdrop_path}">
+//   <img class="gallery__image" 
+//   src="${backdrop_path}"
+//   alt="${original_title}" />
+// <div class="info">
+//        <p class="info-item">
+//             <b>Name ${original_title}</b>
+//         </p>
+//         <p class="info-item">
+//             <b>Popularity ${popularity}</b>
+//         </p>
+//         <p class="info-item">
+//             <b>Comments ${overview}</b>
+//         </p>
+//         <p class="info-item">
+//             <b>client_id <span class="client_id">${id}</span></b>
+//         </p>
+//     </div>
+// </a>`;   
+// }
+
+    // function createQueueMarkUp(array) {
+    //      const markup = array.map((data) => 
+    //          createGalleryCard(data)).join('');
+    //     console.log(markup);
+    //         filmList.innerHTML = markup;
+    //         }
+        
+    //  filmIdArray.map((id) => {
+    //                 fetchFilmByld(id)
+    //                     .then(({ data }) => {
+    //                         console.log(data);
+    //                         filmList.insertAdjacentHTML('afterbegin', makeGalleryCard(data))
+    //                     }                        )
+    //                     .catch((error) => {
+    //                         console.error("Get state error: ", error.message);
+    //                     }
+    //                     )
+    //             })
 
 
-    }
+    
 
     
     // filmAddEl.innerHTML = markupF;
@@ -139,6 +183,34 @@ function save (key, value) {
 
     // const filmEl = document.querySelector(".client_id");
     
+//     function makeGalleryCard ({ poster_path, genres, release_date, backdrop_path, original_title, popularity, overview, id }) {
+
+//     return `<a class="photo-card gallery__item">
+//    <img class="gallery__image"
+//    src="${poster_path}"
+//    alt="${original_title}">
+
+// <div class="info">
+//        <p class="info-item">
+//             <b>${genres}</b>
+//         </p>
+//         <p class="info-item"> ${release_date}</b>
+//         </p>
+//         <p class="info-item">
+//             <b>client_id <span class="client_id">${id}</span></b>
+//         </p>
+//     </div>
+// </a>`;   
+// }
+
+// async function fetchFilmByld(film_Id) {
+//     try {
+//         return await axios.get(`https://api.themoviedb.org/3/movie/${film_Id}?api_key=${API_KEY}`);
+//     }
+//                catch (error) {
+//             throw new Error(error.message);
+//         }
+// }
 
 
     // if () {
@@ -146,7 +218,7 @@ function save (key, value) {
     // }
     // const savedWatched = localStorage.setItem(STORAGE_KEY_WATCH); 
     // return savedWatched;
-}
+
 
 async function fetchFilmByld(film_Id) {
     try {
@@ -160,6 +232,7 @@ async function fetchFilmByld(film_Id) {
 // const savedWatched = localStorage.getItem("Watched");
 
 // const parsedWatched = JSON.parse(savedWatched);
-// console.log(parsedWatched); 
+// console.log(parsedWatched);
 
 // const savedSettings = localStorage.getItem("Watched");
+
