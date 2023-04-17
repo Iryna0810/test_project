@@ -28,9 +28,10 @@ fetchVideo()
     });
 
 const filmAddEl = document.querySelector('.gallery');
-const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
 
-let watchedListFilm = [];
+
+let filmLocalStorag = [];
+let filmData = [];
 
 filmAddEl.addEventListener("click", setWatchedListFilms);
 
@@ -45,52 +46,86 @@ function setWatchedListFilms(event) {
 
     fetchFilmByld(searchQueryId)
         .then(({ data }) => {
+            console.log(data);
             try {
-        
-    
-        if (savedData) {
-            let filmIdLocalStorag = [];
-            const filmData = JSON.parse(savedData);
-        
-            filmData.forEach(((filmData) => {
-                filmIdLocalStorag.push(filmData.id)
-                console.log(filmIdLocalStorag);
-}
-            ))
-            for (const id of filmIdLocalStorag) {
-                if (data.id === id) {
-                    return;
-                }
-            }
-}
-            watchedListFilm.push(data);
-            localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(watchedListFilm));
-            } 
+                
+                const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
+                
+                // console.log(savedData);
+                filmData.push(data);
+                console.log(filmData);
+                // filmLocalStorag.push(data);
+                localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(filmData));
+
+                    // filmData.push(JSON.parse(savedData))
+      
+                                       
+                    // let filmIdLocalStorag = [];
+
+                    // filmData.forEach(((filmEl) => {
+                    //     console.log(filmEl)
+                    //     filmIdLocalStorag.push(filmEl.id);
+                    //     }));
+                    // console.log(filmIdLocalStorag);
+                    
+                    // for (const id of filmIdLocalStorag) {
+                    //     if (data.id === id) {
+                    //         return;
+                    //     }
+                    // }             
+           }               
             catch (error) {
-            console.error("Get state error: ", error.message);
-    }   
+                console.error("Get state error: ", error.message);
+            }
+
         })
-        .catch(err => {
-            console.log(err);
-    });
- 
+        .catch((error) => {
+            console.error("Set state error: ", error.message);
+        });
+        
+function save (key, value) {
+  try {
+    const serializedState = JSON.stringify(value);
+    localStorage.setItem(key, serializedState);
+  } catch (error) {
+    console.error("Set state error: ", error.message);
+  }
+};
+
+ function load (key) {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    console.error("Get state error: ", error.message);
+  }
+};
 
     const queueButton = document.querySelector('.btn_queue');
     queueButton.addEventListener('click', createQueueMarkUp);
+    console.log(queueButton);
 
     function createQueueMarkUp() {
          filmAddEl.innerHTML = "";
         try {
+        const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
         const filmData = JSON.parse(savedData);
-                  
-        if (savedData) {
+            console.log(filmData);
+        if (filmData) {
           
-            filmData.forEach((filmObject) => {
-                imagesList.innerHTML = createGalleryCard(filmObject);
-        })
+        //     filmData.forEach((filmObject) => {
+                
+        //         filmAddEl.innerHTML = createGalleryCard(filmObject);
+        // })
 
+            const markup = filmData.map((data) => 
+             {createGalleryCard(data);}   
+            ).join('');
+            filmAddEl.innerHTML = markup;
+
+            }
         }
-    } catch (error) {
+     catch (error) {
             console.error("Get state error: ", error.message);
     }
 
