@@ -36,7 +36,7 @@ import { genres } from "./genres";
     })
     .join('');
 
-     const galleryFilms = document.querySelector('.galleryFilms-js');
+     const galleryFilms = document.querySelector('.galleryfilms-js');
     //  renderMarkup();
      console.log(galleryFilms);
      galleryFilms.innerHTML = createdElements;

@@ -2,11 +2,11 @@ import axios from 'axios';
 import { renderMarkup } from './render_markup';
 
 // import './js/render-markup.js';
-const STORAGE_KEY_WATCH = 'watched';
+const STORAGE_KEY_WATCH = 'watched_id';
 const STORAGE_KEY_QUEUE = 'queu';
 const queueButton = document.querySelector('.js_queue');
 const watchedButton = document.querySelector('.js_watched');
-const galleryFilms = document.querySelector('.galleryFilms-js');
+const galleryFilms = document.querySelector('.galleryfilms-js');
 const nomoviesimages = document.querySelector('.start');
 
 console.log(nomoviesimages);
@@ -37,31 +37,39 @@ const apiInfoMovies = new ApiMovieSearch();
 
 function handleGetWatchedFilms() {
         galleryFilms.innerHTML = "";
-        const savedData = localStorage.getItem('watched_id');
-         
-    nomoviesimages.classList.add('is-hidden');
+        const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
+
+        nomoviesimages.classList.remove('is-hidden');
     
         if (queueButton.classList.contains('is-active')) {
         queueButton.classList.remove('is-active');
         }
         watchedButton.classList.add('is-active');
+        watchedButton.classList.add('btn-active');
+       queueButton.classList.remove('btn-active');
+    
+    let datagenre_ids = [];
     
     let films = {
         results: [],
     };
-    
-        if (savedData) {
-        try {
+            if (savedData) {
+            try {
             const filmData = JSON.parse(savedData);
-            console.log(filmData);
+            // console.log(filmData);
             filmData.map((id) => {
                 apiInfoMovies
                     .fetchMovies(id)
                     .then(({ data }) => {
-                        console.log(data);
-                        data.genre_ids = data.genres;
+                        // console.log(data);
+                        nomoviesimages.classList.add('is-hidden');
+                        // data.genre_ids = data.genres;
+                        datagenre_ids = data.genres.map(genre => genre.id);
+                        data.genre_ids = datagenre_ids;
+                        console.log(datagenre_ids)
+
                         films.results.push(data);
-                        console.log(films);
+                        // console.log(films);
                     
                         renderMarkup(films); 
                     
@@ -76,7 +84,6 @@ function handleGetWatchedFilms() {
             }
         }        
 };
-
 
 function handleGetQueueFilms() {
         galleryFilms.innerHTML = "";
