@@ -8,13 +8,27 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-
-    <button type="button" class="btn js_queue is-active">Add Queue</button>
-    <button type="button" class="btn js_watched">Add Watched</button>
+  <header class="header__container container">
+    <ul class="menu-list list">
+      <li class="menu-list__item">
+        <a class="menu-list__link menu-list__link--active" href="./index.html">Home</a>
+      </li>
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="./myLibary.html">My library</a>
+      </li>
+    </ul>
+  </header>
+  <main>
+<button type="button" class="btn js_queue is-active">Add Queue</button>
+<button type="button" class="btn js_watched">Add Watched</button>
 
 <div class="gallery"></div>
-<div class="galleryfilms-js gallery gallery-markup"></div>
-<img src="./images/nomovies.png" alt="no movies" class="start" />
+<div class="galleryFilms-js gallery gallery-markup"></div>
+<!-- <img src="./images/nomovies.png" alt="no movies" class="start img" /> -->
+
+  </main>  
+  
+ 
 
 
 <!-- <a href="">
@@ -24,6 +38,6 @@
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <!-- <include src="./partials/example.html"></include> -->
 <script src="./index.js" type="module"></script>
-<script src="./get_localstorage_info.js" type="module"></script>
+<!-- <script src="./get_localstorage_info.js" type="module"></script> -->
   </body>
 </html>

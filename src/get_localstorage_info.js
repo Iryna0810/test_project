@@ -3,11 +3,11 @@ import { renderMarkup } from './render_markup';
 
 // import './js/render-markup.js';
 const STORAGE_KEY_WATCH = 'watched_id';
-const STORAGE_KEY_QUEUE = 'queu';
+const STORAGE_KEY_QUEUE = 'queue';
 const queueButton = document.querySelector('.js_queue');
 const watchedButton = document.querySelector('.js_watched');
-const galleryFilms = document.querySelector('.galleryfilms-js');
-const nomoviesimages = document.querySelector('.start');
+const galleryFilms = document.querySelector('.gallery');
+const nomoviesimages = document.querySelector('.img');
 
 console.log(nomoviesimages);
 
@@ -36,10 +36,16 @@ class ApiMovieSearch {
 const apiInfoMovies = new ApiMovieSearch();
 
 function handleGetWatchedFilms() {
-        galleryFilms.innerHTML = "";
-        const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
+    galleryFilms.innerHTML = "";
+    
+    const savedData = localStorage.getItem(STORAGE_KEY_WATCH);
+    
+    const filmData = JSON.parse(savedData);
 
+    if (filmData.length === 0) {
         nomoviesimages.classList.remove('is-hidden');
+    }
+       
     
         if (queueButton.classList.contains('is-active')) {
         queueButton.classList.remove('is-active');
@@ -53,9 +59,10 @@ function handleGetWatchedFilms() {
     let films = {
         results: [],
     };
-            if (savedData) {
+    
+    if (filmData) {
             try {
-            const filmData = JSON.parse(savedData);
+            
             // console.log(filmData);
             filmData.map((id) => {
                 apiInfoMovies
