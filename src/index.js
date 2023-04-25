@@ -38,7 +38,7 @@ const filmAddEl = document.querySelector('.gallery');
 
 let filmLocalStorag = [];
 let filmData = [];
-
+let searchIdArray = [];
 
 filmAddEl.addEventListener("click", setWatchedListFilms);
 
@@ -48,12 +48,12 @@ function setWatchedListFilms(event) {
         return;
     }
     
-    let searchIdArray = [];
+    
     const searchQueryId = event.target.attributes.id.textContent;
     
     console.log(searchQueryId); 
     searchIdArray.push(searchQueryId);
-    
+    console.log(searchIdArray);
     // watched = load('watched') ? load('watched') : [];
     if (searchIdArray !== [] || searchIdArray !== null) {
         localStorage.setItem('watched_id', JSON.stringify(searchIdArray))
@@ -69,13 +69,8 @@ function setWatchedListFilms(event) {
                 // console.log(savedData);
                 filmData.push(data);
                 console.log(filmData);
-                // filmLocalStorag.push(data);
                 localStorage.setItem(STORAGE_KEY_WATCH, JSON.stringify(filmData));
 
-                // filmData.push(JSON.parse(savedData))
-      
-                                       
-                // let filmIdLocalStorag = [];
 
                 // filmData.forEach(((filmEl) => {
                 //     console.log(filmEl)
