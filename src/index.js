@@ -1,11 +1,15 @@
 import axios from 'axios';
 import createGalleryCard from './gallery_list.hbs';
+import { renderMarkup } from './render_markup';
 // import './get_localstorage_info';
 
    const API_KEY = '2bcb7fdd81c3309c5e646690433e3287';  
    const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/week';
    const STORAGE_KEY_WATCH = 'watched';
-   const imagesList = document.querySelector('.galleryFilms-js');
+   const imagesList = document.querySelector('.galleryfilms-js');
+   
+
+// localStorage.setItem('watched_id', JSON.stringify(searchIdArray));
 
      async function fetchVideo () {
         try {
@@ -34,7 +38,7 @@ const filmAddEl = document.querySelector('.gallery');
 
 let filmLocalStorag = [];
 let filmData = [];
-let searchIdArray = [];
+
 
 filmAddEl.addEventListener("click", setWatchedListFilms);
 
@@ -43,13 +47,18 @@ function setWatchedListFilms(event) {
     if (event.target.nodeName !== "BUTTON") {
         return;
     }
-   
-    const searchQueryId = event.target.attributes.id.textContent;
-    console.log(searchQueryId);
-
     
+    let searchIdArray = [];
+    const searchQueryId = event.target.attributes.id.textContent;
+    
+    console.log(searchQueryId); 
     searchIdArray.push(searchQueryId);
-    localStorage.setItem('watched_id', JSON.stringify(searchIdArray));
+    
+    // watched = load('watched') ? load('watched') : [];
+    if (searchIdArray !== [] || searchIdArray !== null) {
+        localStorage.setItem('watched_id', JSON.stringify(searchIdArray))
+    } 
+    
 
     fetchFilmByld(searchQueryId)
         .then(({ data }) => {

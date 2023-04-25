@@ -132,7 +132,7 @@ form {
 }
 
 .header__container {
-  height: 460px;
+  height: auto;
   padding-left: 20px;
   padding-right: 20px;
   // padding: 20px;
@@ -142,4 +142,31 @@ form {
   // background-size: auto;
   margin: 20px;
   border-radius: 10px;
+  list-style-type: none;
+  text-decoration: none;
 }
+
+.menu-list__link {
+  color: #FFFFFF;
+    font-family: Open Sans;
+    font-size: 26px;
+    font-weight: 100;
+    padding: 5px;
+    background-color: #270bfe;
+    margin: 20px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.menu-list {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 20px;
+  list-style: none;
+}
+
+
